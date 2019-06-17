@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { getOffers } from './actions';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  componentDidMount() {
+    this.props.getOffers();
+  }
+
+  renderOffers() {
+    if (this.props.offers.length !== 0) {
+      return this.props.offers.map(offer => {
+        return <div key={offer.id}>{offer.title}</div>;
+      });
+    } else {
+      return <div>Loading...</div>;
+    }
+  }
+
+  render() {
+    return <div>{this.renderOffers()}</div>;
+  }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    offers: state.offers
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { getOffers }
+)(App);
