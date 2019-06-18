@@ -6,6 +6,7 @@ export const getOffers = () => async dispatch => {
 
   dispatch({
     type: 'GET_OFFERS',
-    response: response.data
+    response: response.data,
+    fetched: true
   });
 };
