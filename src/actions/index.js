@@ -10,3 +10,10 @@ export const getOffers = () => async dispatch => {
     fetched: true
   });
 };
+
+export const setTechnology = (technology) => {
+  return {
+    type: 'SET_TECHNOLOGY',
+    technology
+  }
+};
