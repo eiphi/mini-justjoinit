@@ -17,3 +17,12 @@ export const setTechnology = (technology) => {
     technology
   }
 };
+
+
+// export const filteredOffers = (offers, technology) => {
+//   return {
+//     type: 'SET_TECHNOLOGY',
+//     technology,
+//     offers
+//   }
+// };

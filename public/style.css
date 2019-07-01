@@ -1,9 +1,45 @@
+html, body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+}
+
+#root, .ui.container {
+  height: 100%;
+}
+
 .header {
+  position: fixed;
   display: flex;
+  background: #b1b1b1;
+  width: 100%;
+  height: 30px;
+  align-items: center;
 }
 
 .technologies {
   display: flex;
   justify-content: space-evenly;
   flex-grow: 1;
+}
+
+.list {
+  margin-top: 30px;
+  float: left;
+  width:50%;
+  padding: 5px 0;
+  overflow: scroll;
+  height: calc(100% - 30px);
+}
+
+.map {    
+  position: fixed;
+  width: 50%;
+  height: calc(100% - 30px);
+  right: 0px;
+  top:30px;
+}
+
+.map-text {
+  margin-top:100px;
 }

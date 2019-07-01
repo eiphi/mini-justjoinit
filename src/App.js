@@ -6,23 +6,25 @@ import { getOffers } from './actions';
 import OfferList from './components/OfferList';
 import Offer from './components/Offer';
 import Header from './components/Header';
+import SimpleMap from './components/SimpleMap';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.getOffers();
   }
-  
+
   render() {
     return (
       <div className="ui container">
         <BrowserRouter>
-          <div>
-            <Header />
+          <Header />
+          <div className="list">
             <Switch>
               <Route path="/" exact component={OfferList} />
               <Route path="/offer/:id" exact component={Offer} />
             </Switch>
           </div>
+            <SimpleMap />
         </BrowserRouter>
       </div>
     );
@@ -30,6 +32,6 @@ class App extends React.Component {
 }
 
 export default connect(
-  null,
+  null ,
   { getOffers }
 )(App);
