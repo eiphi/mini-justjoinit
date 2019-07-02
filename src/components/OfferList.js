@@ -1,15 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectOffer } from '../actions/';
+import { selectOffer, setTechnology } from '../actions/';
 
 class OfferList extends React.Component {
   componentDidMount() {
-    this.props.selectOffer(null)
+    this.props.selectOffer(null);
   }
-  
+
   renderOffers() {
-    if (this.props.offers.length !== 0) {
+    if (this.props.offers.length !== 0 &&
+      this.props.filteredList.length !== 0) {
       return this.props.filteredList.map(offer => {
         return (
           <div key={offer.id}>
@@ -23,6 +24,16 @@ class OfferList extends React.Component {
           </div>
         );
       });
+    } else if (
+      this.props.offers.length !== 0 &&
+      this.props.filteredList.length === 0
+    ) {
+      return (
+        <div>
+          Sorry! No offers match your search :(
+          <Link onClick={() => this.props.setTechnology('all')}>Reset filters?</Link>
+        </div>
+      );
     } else {
       return <div>Loading...</div>;
     }
@@ -48,5 +59,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { selectOffer }
+  { selectOffer, setTechnology }
 )(OfferList);

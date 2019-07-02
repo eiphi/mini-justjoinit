@@ -12,10 +12,10 @@ class Header extends React.Component {
       <div className="header">
         <Link onClick={() => this.onFilterClick('all')} to="/">Mini JustJoinIT</Link>
         <div className="technologies">
-          <button onClick={() => this.onFilterClick('all')}>All</button>
-          <button onClick={() => this.onFilterClick('js')}>JS</button>
-          <button onClick={() => this.onFilterClick('ruby')}>Ruby</button>
-          <button onClick={() => this.onFilterClick('java')}>Java</button>
+          <Link to="/" onClick={() => this.onFilterClick('all')}>All</Link >
+          <Link to="/" onClick={() => this.onFilterClick('js')}>JS</Link >
+          <Link to="/" onClick={() => this.onFilterClick('ruby')}>Ruby</Link >
+          <Link to="/" onClick={() => this.onFilterClick('java')}>Java</Link >
           <div>{this.props.selectedTechnology}</div>
         </div>
       </div>
