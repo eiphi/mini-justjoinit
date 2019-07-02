@@ -3,27 +3,35 @@ import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 
 const Marker = () => {
-  return <img alt="marker" style={{height: 30}} src="https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png" />
+  return (
+    <img
+      alt="marker"
+      style={{ height: 30 }}
+      src="https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png"
+    />
+  );
 };
 
 class SimpleMap extends Component {
   renderMarkers() {
-    if (this.props.offers.length !== 0) {
-      return this.props.offers.map(offer => {
-        if (
-          offer.marker_icon === this.props.selectedTechnology ||
-          this.props.selectedTechnology === 'all'
-        ) {
-          return (
-            <Marker
-              lat={offer.latitude}
-              lng={offer.longitude}
-              text={offer.title}
-            />
-          );
-        }
-        return null;
+    if (this.props.offers.length !== 0 && this.props.selectedOffer === null) {
+      return this.props.filteredOffers.map(offer => {
+        return (
+          <Marker
+            lat={offer.latitude}
+            lng={offer.longitude}
+            text={offer.title}
+          />
+        );
       });
+    } else if (this.props.selectedOffer !== null){
+      return (
+        <Marker
+          lat={this.props.selectedOffer.latitude}
+          lng={this.props.selectedOffer.longitude}
+          text={this.props.selectedOffer.title}
+        />
+      );
     } else {
       return <div>Loading...</div>;
     }
@@ -56,7 +64,13 @@ class SimpleMap extends Component {
 const mapStateToProps = state => {
   return {
     selectedTechnology: state.filters.technology,
-    offers: state.offers
+    offers: state.offers,
+    selectedOffer: state.selectedOffer,
+    filteredOffers: state.offers.filter(
+      offer =>
+        offer.marker_icon === state.filters.technology ||
+        state.filters.technology === 'all'
+    )
   };
 };
 

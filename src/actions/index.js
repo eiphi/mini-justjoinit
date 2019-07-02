@@ -18,6 +18,12 @@ export const setTechnology = (technology) => {
   }
 };
 
+export const selectOffer = (offer) => {
+  return {
+    type: 'SELECT_OFFER',
+    offer
+  }
+};
 
 // export const filteredOffers = (offers, technology) => {
 //   return {
