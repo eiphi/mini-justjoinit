@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectOffer, setTechnology } from '../actions/';
+import { selectOffer } from '../actions/';
+import { Link } from 'react-router-dom';
 
 class Offer extends React.Component {
   componentDidMount() {
@@ -9,7 +10,12 @@ class Offer extends React.Component {
   renderOffer() {
     const offer = this.props.offer[0];
     if (offer) {
-      return <div>{offer.title}</div>;
+      return (
+        <div>
+          {offer.title}
+          <Link to="/">Back to homepage</Link>
+        </div>
+      );
     }
     return <div>Loading...</div>;
   }
