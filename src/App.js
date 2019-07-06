@@ -6,11 +6,15 @@ import { getOffers } from './actions';
 import OfferList from './components/OfferList';
 import Offer from './components/Offer';
 import Header from './components/Header';
-import SimpleMap from './components/SimpleMap';
+import Map from './components/Map';
 
 class App extends React.Component {
   componentDidMount() {
     this.props.getOffers();
+  }
+
+  onOfferHover(id) {
+    return id;
   }
 
   render() {
@@ -20,11 +24,17 @@ class App extends React.Component {
           <Header />
           <div className="list">
             <Switch>
-              <Route path="/" exact component={OfferList} />
+              <Route
+                path="/"
+                exact
+                component={() => (
+                  <OfferList onOfferHover={this.onOfferHover} />
+                )}
+              />
               <Route path="/offer/:id" exact component={Offer} />
             </Switch>
           </div>
-            <SimpleMap />
+          <Map hoveredOffer={this.onOfferHover()}/>
         </BrowserRouter>
       </div>
     );
@@ -32,6 +42,6 @@ class App extends React.Component {
 }
 
 export default connect(
-  null ,
+  null,
   { getOffers }
 )(App);

@@ -1,19 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectOffer, setTechnology } from '../actions/';
+import { selectOffer, setTechnology, hoverOffer } from '../actions/';
 
 class OfferList extends React.Component {
   componentDidMount() {
     this.props.selectOffer(null);
   }
 
+  // offerHover(id) {
+  //   console.log(id);
+  // }
+
   renderOffers() {
-    if (this.props.offers.length !== 0 &&
-      this.props.filteredList.length !== 0) {
+    if (
+      this.props.offers.length !== 0 &&
+      this.props.filteredList.length !== 0
+    ) {
       return this.props.filteredList.map(offer => {
         return (
-          <div key={offer.id}>
+          <div key={offer.id} onMouseOver={() => this.props.hoverOffer(offer.id)}>
             {offer.title}
             <Link
               onClick={() => this.props.selectOffer(offer)}
@@ -31,7 +37,9 @@ class OfferList extends React.Component {
       return (
         <div>
           Sorry! No offers match your search :(
-          <Link onClick={() => this.props.setTechnology('all')}>Reset filters?</Link>
+          <Link onClick={() => this.props.setTechnology('all')}>
+            Reset filters?
+          </Link>
         </div>
       );
     } else {
@@ -59,5 +67,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { selectOffer, setTechnology }
+  { selectOffer, setTechnology, hoverOffer }
 )(OfferList);

@@ -25,6 +25,13 @@ export const selectOffer = (offer) => {
   }
 };
 
+export const hoverOffer = (id) => {
+  return {
+    type: 'HOVER_OFFER',
+    id
+  }
+};
+
 // export const filteredOffers = (offers, technology) => {
 //   return {
 //     type: 'SET_TECHNOLOGY',
