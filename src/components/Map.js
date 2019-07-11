@@ -4,6 +4,10 @@ import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
 
 class Map extends Component {
+  redIconUrl =
+    'https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png';
+  greenIconUrl =
+    'https://www.trzcacak.rs/myfile/full/123-1233557_google-map-marker-green-peg-green-google-map.png';
   setMapDefaults() {
     this.mapPosition = {
       lat: 51.76,
@@ -22,15 +26,13 @@ class Map extends Component {
         lat={offer.latitude}
         lng={offer.longitude}
         text={offer.title}
+        iconUrl={this.greenIconUrl}
+        className="marker-hover"
       />
     );
   }
 
   renderFilteredMarkers() {
-    const redIconUrl =
-      'https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png';
-    const greenIconUrl =
-      'https://www.trzcacak.rs/myfile/full/123-1233557_google-map-marker-green-peg-green-google-map.png';
     return this.props.filteredOffers.map(offer => {
       return (
         <Marker
@@ -41,7 +43,9 @@ class Map extends Component {
           className={
             this.props.hoveredOffer === offer.id ? 'marker-hover' : 'marker'
           }
-          iconUrl={this.props.hoveredOffer === offer.id ? greenIconUrl : redIconUrl}
+          iconUrl={
+            this.props.hoveredOffer === offer.id ? this.greenIconUrl : this.redIconUrl
+          }
         />
       );
     });
