@@ -2,6 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
+import styled from 'styled-components';
+
+const MapStyled = styled.div`
+  position: fixed;
+  width: 50%;
+  height: calc(100% - 30px);
+  right: 0px;
+  top: 30px;
+`;
+
+const MarkerHover = styled(Marker)`
+  img {
+    animation: bounce 0.5s;
+    animation-direction: alternate;
+    animation-iteration-count: infinite;
+    z-index: 150;
+    position: absolute;
+  }
+`;
 
 class Map extends Component {
   redIconUrl =
@@ -21,13 +40,11 @@ class Map extends Component {
     this.mapPosition = { lat: offer.latitude, lng: offer.longitude };
     this.mapZoom = 10;
     return (
-      <Marker
+      <MarkerHover
         offer={offer}
         lat={offer.latitude}
         lng={offer.longitude}
-        text={offer.title}
         iconUrl={this.greenIconUrl}
-        className="marker-hover"
       />
     );
   }
@@ -39,12 +56,13 @@ class Map extends Component {
           offer={offer}
           lat={offer.latitude}
           lng={offer.longitude}
-          text={offer.title}
           className={
-            this.props.hoveredOffer === offer.id ? 'marker-hover' : 'marker'
+            this.props.hoveredOffer === offer.id ? 'marker-hover' : null
           }
           iconUrl={
-            this.props.hoveredOffer === offer.id ? this.greenIconUrl : this.redIconUrl
+            this.props.hoveredOffer === offer.id
+              ? this.greenIconUrl
+              : this.redIconUrl
           }
         />
       );
@@ -63,7 +81,7 @@ class Map extends Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div className="map">
+      <MapStyled>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyCcilKurUsSfifBCMEZs7Cjj2MtbMaR1Xk' }}
           center={this.mapPosition}
@@ -72,7 +90,7 @@ class Map extends Component {
           {this.setMapDefaults()}
           {this.renderMarkers()}
         </GoogleMapReact>
-      </div>
+      </MapStyled>
     );
   }
 }
