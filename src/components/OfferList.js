@@ -19,7 +19,11 @@ class OfferList extends React.Component {
     ) {
       return this.props.filteredList.map(offer => {
         return (
-          <div key={offer.id} onMouseOver={() => this.props.hoverOffer(offer.id)}>
+          <div
+            key={offer.id}
+            onMouseEnter={() => this.props.hoverOffer(offer.id)}
+            onMouseLeave={() => this.props.hoverOffer(null)}
+          >
             {offer.title}
             <Link
               onClick={() => this.props.selectOffer(offer)}

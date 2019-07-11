@@ -11,6 +11,8 @@ const MarkerModal = styled.div`
   top: -10px;
   left: 23px;
   font-family: 'Ubuntu';
+  border-left: 3px solid
+    ${props => (props.technology === 'javascript' ? 'yellow' : 'none')};
 `;
 
 const Salary = styled.div`
@@ -48,11 +50,12 @@ const MarkerPopup = ({
   salaryCur,
   salaryTo,
   hover,
+  selected,
   technology
 }) => {
-  if (hover) {
+  if (hover || selected) {
     return (
-      <MarkerModal>
+      <MarkerModal technology={technology}>
         <Company>{company}</Company>
         <Title>{title}</Title>
         {RenderSalary(salaryFrom, salaryTo, salaryCur)}

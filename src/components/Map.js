@@ -41,6 +41,7 @@ class Map extends Component {
     this.mapZoom = 10;
     return (
       <MarkerHover
+        selected
         offer={offer}
         lat={offer.latitude}
         lng={offer.longitude}

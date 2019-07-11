@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import MarkerPopup from './MarkerPopup';
 
 
-const Marker = ({ offer, className, iconUrl, $hover, selectOffer }) => {
+const Marker = ({ offer, className, iconUrl, $hover, selectOffer , selected}) => {
   return (
     <Link
       className={className}
@@ -14,6 +14,7 @@ const Marker = ({ offer, className, iconUrl, $hover, selectOffer }) => {
     >
       <img alt="marker" style={{ height: 30 }} src={iconUrl} />
       <MarkerPopup
+        selected={selected}
         hover={$hover}
         title={offer.title}
         company={offer.company_name}

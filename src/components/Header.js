@@ -33,8 +33,8 @@ class Header extends React.Component {
           <Link to="/" onClick={() => this.onFilterClick('all')}>
             All
           </Link>
-          <Link to="/" onClick={() => this.onFilterClick('js')}>
-            JS
+          <Link to="/" onClick={() => this.onFilterClick('javascript')}>
+            JavaScript
           </Link>
           <Link to="/" onClick={() => this.onFilterClick('ruby')}>
             Ruby
@@ -42,7 +42,12 @@ class Header extends React.Component {
           <Link to="/" onClick={() => this.onFilterClick('java')}>
             Java
           </Link>
-          <div>{this.props.selectedTechnology}</div>
+          <Link to="/" onClick={() => this.onFilterClick('php')}>
+            PHP
+          </Link>
+          <Link to="/" onClick={() => this.onFilterClick('mobile')}>
+            Mobile
+          </Link>
         </Technologies>
       </HeaderStyled>
     );
