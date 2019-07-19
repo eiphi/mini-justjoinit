@@ -1,56 +1,67 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectOffer, setTechnology, hoverOffer } from '../actions/';
 
-class OfferList extends React.Component {
-  componentDidMount() {
-    this.props.selectOffer(null);
-  }
+const OfferList = ({
+  selectOffer,
+  offers,
+  filteredList,
+  hoverOffer,
+  setTechnology
+}) => {
+  const [page, setPage] = useState(1);
 
-  renderOffers() {
-    if (
-      this.props.offers.length !== 0 &&
-      this.props.filteredList.length !== 0
-    ) {
-      return this.props.filteredList.map(offer => {
-        return (
-          <div
-            key={offer.id}
-            onMouseEnter={() => this.props.hoverOffer(offer.id)}
-            onMouseLeave={() => this.props.hoverOffer(null)}
-          >
-            {offer.title}
-            <Link
-              onClick={() => this.props.selectOffer(offer)}
-              to={`/offer/${offer.id}`}
-            >
-              Go to offer
-            </Link>
-          </div>
+  useEffect(() => {
+    selectOffer(null);
+  });
+
+  const renderList = () => {
+    return filteredList.slice(0, page * 30).map(offer => {
+      return (
+        <div
+          key={offer.id}
+          onMouseEnter={() => hoverOffer(offer.id)}
+          onMouseLeave={() => hoverOffer(null)}
+        >
+          {offer.title}
+          <Link onClick={() => selectOffer(offer)} to={`/offer/${offer.id}`}>
+            Go to offer
+          </Link>
+        </div>
+      );
+    });
+  };
+
+  const renderOffers = () => {
+    if (offers.length !== 0 && filteredList.length !== 0) {
+      let button;
+      if (offers.length > page * 30) {
+        button = (
+          <button onClick={() => setPage(page + 1)}>Load more offers</button>
         );
-      });
-    } else if (
-      this.props.offers.length !== 0 &&
-      this.props.filteredList.length === 0
-    ) {
+      } else {
+        button = <div>Sorry, no more offer available</div>;
+      }
+      return (
+        <>
+          {renderList()}
+          {button}
+        </>
+      );
+    } else if (offers.length !== 0 && filteredList.length === 0) {
       return (
         <div>
           Sorry! No offers match your search :(
-          <Link onClick={() => this.props.setTechnology('all')}>
-            Reset filters?
-          </Link>
+          <Link onClick={() => this.setTechnology('all')}>Reset filters?</Link>
         </div>
       );
     } else {
       return <div>Loading...</div>;
     }
-  }
-
-  render() {
-    return <div>{this.renderOffers()}</div>;
-  }
-}
+  };
+  return <div>{renderOffers()}</div>;
+};
 
 const mapStateToProps = state => {
   return {

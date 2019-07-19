@@ -92,7 +92,6 @@ class Map extends Component {
   }
 
   renderMap() {
-    console.log('oko');
     if (this.props.offers.length !== 0 && this.props.selectedOffer === null) {
       return this.renderMainMap();
     } else if (this.props.selectedOffer !== null) {

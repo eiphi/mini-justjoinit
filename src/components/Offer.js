@@ -49,7 +49,6 @@ const Offer = ({ offers, selectedOffer, selectOffer, offer }) => {
     }
     return <div>Loading...</div>;
   };
-  debugger;
   return renderOffer();
 };
 
