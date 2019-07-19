@@ -8,10 +8,6 @@ class OfferList extends React.Component {
     this.props.selectOffer(null);
   }
 
-  // offerHover(id) {
-  //   console.log(id);
-  // }
-
   renderOffers() {
     if (
       this.props.offers.length !== 0 &&

@@ -12,7 +12,22 @@ const MarkerModal = styled.div`
   left: 23px;
   font-family: 'Ubuntu';
   border-left: 3px solid
-    ${props => (props.technology === 'javascript' ? 'yellow' : 'none')};
+    ${props => {
+      switch (props.technology) {
+        case 'javascript':
+          return 'yellow';
+        case 'java':
+          return 'pink';
+        case 'ruby':
+          return 'red';
+        case 'php':
+          return 'blue';
+        case 'mobile':
+          return 'violet';
+        default:
+          return 'green';
+      }
+    }};
 `;
 
 const Salary = styled.div`
@@ -43,22 +58,17 @@ const RenderSalary = (from, to, cur) => {
     return <Salary>Undisclosed Salary</Salary>;
   }
 };
-const MarkerPopup = ({
-  title,
-  company,
-  salaryFrom,
-  salaryCur,
-  salaryTo,
-  hover,
-  selected,
-  technology
-}) => {
-  if (hover || selected) {
+const MarkerPopup = ({ offer, hover }) => {
+  if (hover) {
     return (
-      <MarkerModal technology={technology}>
-        <Company>{company}</Company>
-        <Title>{title}</Title>
-        {RenderSalary(salaryFrom, salaryTo, salaryCur)}
+      <MarkerModal technology={offer.marker_icon}>
+        <Company>{offer.company_name}</Company>
+        <Title>{offer.title}</Title>
+        {RenderSalary(
+          offer.salary_from,
+          offer.salary_to,
+          offer.salary_currency
+        )}
       </MarkerModal>
     );
   }
