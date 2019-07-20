@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectOffer } from '../actions';
+import { selectOffer, hoverOffer } from '../actions';
 import { Link } from 'react-router-dom';
 import MarkerPopup from './MarkerPopup';
+import styled from 'styled-components';
 
 const Marker = ({
   offer,
@@ -27,10 +28,10 @@ const Marker = ({
     );
   } else {
     return (
-      <>
+      <div className={className}>
         <img alt="marker" style={{ height: 30 }} src={iconUrl} />
         <MarkerPopup hover={true} offer={selectedOffer} />
-      </>
+      </div>
     );
   }
 };
@@ -41,5 +42,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { selectOffer }
+  { selectOffer, hoverOffer }
 )(Marker);

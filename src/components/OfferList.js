@@ -36,7 +36,7 @@ const OfferList = ({
   const renderOffers = () => {
     if (offers.length !== 0 && filteredList.length !== 0) {
       let button;
-      if (offers.length > page * 30) {
+      if (filteredList.length > page * 30) {
         button = (
           <button onClick={() => setPage(page + 1)}>Load more offers</button>
         );
