@@ -52,8 +52,8 @@ const OfferList = ({
     } else if (offers.length !== 0 && filteredList.length === 0) {
       return (
         <div>
-          Sorry! No offers match your search :(
-          <Link onClick={() => this.setTechnology('all')}>Reset filters?</Link>
+          Sorry! No offers match your search :
+          <Link onClick={() => setTechnology('all')}>Reset filters?</Link>
         </div>
       );
     } else {

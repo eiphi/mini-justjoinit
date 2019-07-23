@@ -3,15 +3,20 @@ import { connect } from 'react-redux';
 import { selectOffer, hoverOffer } from '../actions';
 import { Link } from 'react-router-dom';
 import MarkerPopup from './MarkerPopup';
-import styled from 'styled-components';
 
+const renderPopup = (offer, hoveredOffer) => {
+  if (hoveredOffer === offer.id) {
+    return <MarkerPopup hover={true} offer={offer} />;
+  }
+};
 const Marker = ({
   offer,
   className,
   iconUrl,
-  $hover,
+  hoveredOffer,
   selectOffer,
-  selectedOffer
+  selectedOffer,
+  hoverOffer
 }) => {
   if (!selectedOffer) {
     return (
@@ -21,9 +26,11 @@ const Marker = ({
         onClick={() => {
           selectOffer(offer);
         }}
+        onMouseEnter={() => hoverOffer(offer.id)}
+        onMouseLeave={() => hoverOffer(null)}
       >
         <img alt="marker" style={{ height: 30 }} src={iconUrl} />
-        <MarkerPopup hover={$hover} offer={offer} />
+        {renderPopup(offer, hoveredOffer)}
       </Link>
     );
   } else {
@@ -37,7 +44,10 @@ const Marker = ({
 };
 
 const mapStateToProps = state => {
-  return { selectedOffer: state.selectedOffer };
+  return {
+    selectedOffer: state.selectedOffer,
+    hoveredOffer: state.hoveredOffer
+  };
 };
 
 export default connect(

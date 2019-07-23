@@ -58,6 +58,7 @@ const RenderSalary = (from, to, cur) => {
     return <Salary>Undisclosed Salary</Salary>;
   }
 };
+
 const MarkerPopup = ({ offer, hover }) => {
   if (hover) {
     return (

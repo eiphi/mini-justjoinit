@@ -19,49 +19,43 @@ const Technologies = styled.div`
   flex-grow: 1;
 `;
 
-class Header extends React.Component {
-  onFilterClick = technology => {
-    this.props.setTechnology(technology);
+const Header = ({ setTechnology }) => {
+  const onFilterClick = technology => {
+    setTechnology(technology);
   };
-  render() {
-    return (
-      <HeaderStyled>
-        <Link onClick={() => this.onFilterClick('all')} to="/">
-          Mini JustJoinIT
+  return (
+    <HeaderStyled>
+      <Link onClick={() => onFilterClick('all')} to="/">
+        Mini JustJoinIT
+      </Link>
+      <Technologies>
+        <Link to="/" onClick={() => onFilterClick('all')}>
+          All
         </Link>
-        <Technologies>
-          <Link to="/" onClick={() => this.onFilterClick('all')}>
-            All
-          </Link>
-          <Link to="/" onClick={() => this.onFilterClick('javascript')}>
-            JavaScript
-          </Link>
-          <Link to="/" onClick={() => this.onFilterClick('ruby')}>
-            Ruby
-          </Link>
-          <Link to="/" onClick={() => this.onFilterClick('java')}>
-            Java
-          </Link>
-          <Link to="/" onClick={() => this.onFilterClick('php')}>
-            PHP
-          </Link>
-          <Link to="/" onClick={() => this.onFilterClick('mobile')}>
-            Mobile
-          </Link>
-        </Technologies>
-      </HeaderStyled>
-    );
-  }
-}
-
-const mapStateToProps = state => {
-  return {
-    selectedTechnology: state.filters.technology,
-    offers: state.offers
-  };
+        <Link to="/" onClick={() => onFilterClick('javascript')}>
+          JavaScript
+        </Link>
+        <Link to="/" onClick={() => onFilterClick('ruby')}>
+          Ruby
+        </Link>
+        <Link to="/" onClick={() => onFilterClick('java')}>
+          Java
+        </Link>
+        <Link to="/" onClick={() => onFilterClick('php')}>
+          PHP
+        </Link>
+        <Link to="/" onClick={() => onFilterClick('mobile')}>
+          Mobile
+        </Link>
+        <Link to="/" onClick={() => onFilterClick('empty')}>
+          Empty
+        </Link>
+      </Technologies>
+    </HeaderStyled>
+  );
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   { setTechnology }
 )(Header);

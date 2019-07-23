@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { getOffers } from './actions';
@@ -19,34 +19,32 @@ const List = styled.div`
   height: calc(100% - 30px);
 `;
 
-class App extends React.Component {
-  componentDidMount() {
-    this.props.getOffers();
-  }
+const App = ({ getOffers }) => {
+  useEffect(() => {
+    getOffers();
+  });
 
-  onOfferHover(id) {
+  const onOfferHover = id => {
     return id;
-  }
+  };
 
-  render() {
-    return (
-      <BrowserRouter>
-        <Header />
-        <List>
-          <Switch>
-            <Route
-              path="/"
-              exact
-              component={() => <OfferList onOfferHover={this.onOfferHover} />}
-            />
-            <Route path="/offer/:id" exact component={Offer} />
-          </Switch>
-        </List>
-        <Map hoveredOffer={this.onOfferHover()} />
-      </BrowserRouter>
-    );
-  }
-}
+  return (
+    <BrowserRouter>
+      <Header />
+      <List>
+        <Switch>
+          <Route
+            path="/"
+            exact
+            component={() => <OfferList onOfferHover={onOfferHover} />}
+          />
+          <Route path="/offer/:id" exact component={Offer} />
+        </Switch>
+      </List>
+      <Map hoveredOffer={onOfferHover()} />
+    </BrowserRouter>
+  );
+};
 
 export default connect(
   null,

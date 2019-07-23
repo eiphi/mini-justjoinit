@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import GoogleMapReact from 'google-map-react';
 import Marker from './Marker';
@@ -31,14 +31,9 @@ const MarkerHover = styled(Marker)`
   }
 `;
 
-class Map extends Component {
-  redIconUrl =
-    'https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png';
-  greenIconUrl =
-    'https://www.trzcacak.rs/myfile/full/123-1233557_google-map-marker-green-peg-green-google-map.png';
-
-  renderSelectedMarker() {
-    const offer = this.props.selectedOffer;
+const Map = ({ selectedOffer, hoveredOffer, filteredOffers, offers }) => {
+  const renderSelectedMarker = () => {
+    const offer = selectedOffer;
     return (
       <MapStyled>
         <GoogleMapReact
@@ -50,14 +45,28 @@ class Map extends Component {
             offer={offer}
             lat={offer.latitude}
             lng={offer.longitude}
-            iconUrl={this.greenIconUrl}
+            iconUrl={greenIconUrl}
           />
         </GoogleMapReact>
       </MapStyled>
     );
-  }
+  };
 
-  renderMainMap() {
+  const renderFilteredMarkers = () => {
+    return filteredOffers.map(offer => {
+      return (
+        <Marker
+          offer={offer}
+          lat={offer.latitude}
+          lng={offer.longitude}
+          className={hoveredOffer === offer.id ? 'marker-hover' : null}
+          iconUrl={hoveredOffer === offer.id ? greenIconUrl : redIconUrl}
+        />
+      );
+    });
+  };
+
+  const renderMainMap = () => {
     return (
       <MapStyled>
         <GoogleMapReact
@@ -65,46 +74,29 @@ class Map extends Component {
           center={{ lat: 51.76, lng: 19.46 }}
           zoom={6}
         >
-          {this.renderFilteredMarkers()}
+          {renderFilteredMarkers()}
         </GoogleMapReact>
       </MapStyled>
     );
-  }
+  };
 
-  renderFilteredMarkers() {
-    return this.props.filteredOffers.map(offer => {
-      return (
-        <Marker
-          offer={offer}
-          lat={offer.latitude}
-          lng={offer.longitude}
-          className={
-            this.props.hoveredOffer === offer.id ? 'marker-hover' : null
-          }
-          iconUrl={
-            this.props.hoveredOffer === offer.id
-              ? this.greenIconUrl
-              : this.redIconUrl
-          }
-        />
-      );
-    });
-  }
-
-  renderMap() {
-    if (this.props.offers.length !== 0 && this.props.selectedOffer === null) {
-      return this.renderMainMap();
-    } else if (this.props.selectedOffer !== null) {
-      return this.renderSelectedMarker();
+  const renderMap = () => {
+    if (offers.length !== 0 && selectedOffer === null) {
+      return renderMainMap();
+    } else if (selectedOffer !== null) {
+      return renderSelectedMarker();
     } else {
       return <div>Loading...</div>;
     }
-  }
+  };
 
-  render() {
-    return this.renderMap();
-  }
-}
+  const redIconUrl =
+    'https://i.pinimg.com/originals/30/98/49/309849c5815761081926477e5e872f1e.png';
+  const greenIconUrl =
+    'https://www.trzcacak.rs/myfile/full/123-1233557_google-map-marker-green-peg-green-google-map.png';
+
+  return renderMap();
+};
 
 const mapStateToProps = state => {
   return {
