@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectOffer, setTechnology, hoverOffer } from '../actions/';
+import styled from 'styled-components';
+import { selectOffer, setTechnology } from '../actions/';
+import OfferTile from './OfferTile';
 
-const OfferList = ({
-  selectOffer,
-  offers,
-  filteredList,
-  hoverOffer,
-  setTechnology
-}) => {
+const OfferListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  background: #e0e0e0;
+`;
+
+const OfferList = ({ selectOffer, offers, filteredList, setTechnology }) => {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -18,18 +20,7 @@ const OfferList = ({
 
   const renderList = () => {
     return filteredList.slice(0, page * 30).map(offer => {
-      return (
-        <div
-          key={offer.id}
-          onMouseEnter={() => hoverOffer(offer.id)}
-          onMouseLeave={() => hoverOffer(null)}
-        >
-          {offer.title}
-          <Link onClick={() => selectOffer(offer)} to={`/offer/${offer.id}`}>
-            Go to offer
-          </Link>
-        </div>
-      );
+      return <OfferTile offer={offer} />;
     });
   };
 
@@ -44,10 +35,10 @@ const OfferList = ({
         button = <div>Sorry, no more offer available</div>;
       }
       return (
-        <>
+        <OfferListContainer>
           {renderList()}
           {button}
-        </>
+        </OfferListContainer>
       );
     } else if (offers.length !== 0 && filteredList.length === 0) {
       return (
@@ -66,8 +57,6 @@ const OfferList = ({
 const mapStateToProps = state => {
   return {
     offers: state.offers,
-    selectedTechnology: state.filters.technology,
-    selectedOffer: state.selectedOffer,
     filteredList: state.offers.filter(
       offer =>
         offer.marker_icon === state.filters.technology ||
@@ -78,5 +67,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { selectOffer, setTechnology, hoverOffer }
+  { selectOffer, setTechnology }
 )(OfferList);

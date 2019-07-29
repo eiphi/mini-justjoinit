@@ -56,6 +56,7 @@ const Map = ({ selectedOffer, hoveredOffer, filteredOffers, offers }) => {
     return filteredOffers.map(offer => {
       return (
         <Marker
+          key={offer.id}
           offer={offer}
           lat={offer.latitude}
           lng={offer.longitude}

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Salary from './Salary';
 
 const MarkerModal = styled.div`
   background: white;
@@ -30,11 +31,6 @@ const MarkerModal = styled.div`
     }};
 `;
 
-const Salary = styled.div`
-  color: green;
-  text-transform: uppercase;
-`;
-
 const Title = styled.div`
   color: #555555;
   font-weight: 500;
@@ -47,29 +43,17 @@ const Company = styled.div`
   color: black;
 `;
 
-const RenderSalary = (from, to, cur) => {
-  if (from) {
-    return (
-      <Salary>
-        {from} - {to} {cur}
-      </Salary>
-    );
-  } else {
-    return <Salary>Undisclosed Salary</Salary>;
-  }
-};
-
 const MarkerPopup = ({ offer, hover }) => {
   if (hover) {
     return (
       <MarkerModal technology={offer.marker_icon}>
         <Company>{offer.company_name}</Company>
         <Title>{offer.title}</Title>
-        {RenderSalary(
-          offer.salary_from,
-          offer.salary_to,
-          offer.salary_currency
-        )}
+        <Salary
+          from={offer.salary_from}
+          to={offer.salary_to}
+          cur={offer.salary_currency}
+        />
       </MarkerModal>
     );
   }
