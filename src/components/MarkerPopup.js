@@ -18,7 +18,7 @@ const MarkerModal = styled.div`
         case 'javascript':
           return 'yellow';
         case 'java':
-          return 'pink';
+          return 'orange';
         case 'ruby':
           return 'red';
         case 'php':
@@ -31,7 +31,7 @@ const MarkerModal = styled.div`
     }};
 `;
 
-const Title = styled.div`
+export const Title = styled.div`
   color: #555555;
   font-weight: 500;
   font-size: 12px;

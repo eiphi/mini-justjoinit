@@ -1,50 +1,56 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { selectOffer } from '../actions/';
-import { Link } from 'react-router-dom';
+import { LoremIpsum } from 'react-lorem-ipsum';
+import styled from 'styled-components';
+import OfferTile from './OfferTile';
+import { Title } from './MarkerPopup';
+
+const Tile = styled.div`
+  width: 96%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
+  margin: 1%;
+  padding: 1%;
+  position: relative;
+  border-radius: 10px;
+  transition: 0.2s;
+  border-left: 2px solid gray;
+`;
+
+const TitleStyled = styled(Title)`
+  font-size: 18px;
+  margin-bottom: 7px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Offer = ({ offers, selectedOffer, selectOffer, offer }) => {
+  console.log(offer);
   const renderOffer = () => {
     if (offers.length !== 0) {
       if (!selectedOffer) {
         selectOffer(offer);
       }
       return (
-        <div>
-          {offer.title}
-          <Link to="/">Back to homepage</Link>
-          <br />
-          {offer.street}
-          <br />
-          {offer.city}
-          <br />
-          {offer.country_code}
-          <br />
-          {offer.marker_icon}
-          <br />
-          {offer.remote}
-          <br />
-          {offer.experience_level}
-          <br />
-          {offer.salary_from}
-          <br />
-          {offer.salary_to}
-          <br />
-          {offer.salary_currency}
-          <br />
-          {offer.employment_type}
-          <br />
-          {offer.published_at}
-          <br />
-          {offer.company_name}
-          <br />
-          {offer.company_url}
-          <br />
-          {offer.company_size}
-          <br />
-          {offer.company_logo_url}
-          <br />
-        </div>
+        <Container>
+          <OfferTile noLink offer={offer} />
+          <Tile>
+            <TitleStyled>Description</TitleStyled>
+            <LoremIpsum p={2} />
+          </Tile>
+          <Tile>
+            <TitleStyled>Company Info</TitleStyled>
+            {offer.company_name}
+            {offer.company_size}
+            {offer.street}
+            {offer.company_logo_url}
+            {offer.company_url}
+          </Tile>
+        </Container>
       );
     }
     return <div>Loading...</div>;

@@ -8,7 +8,6 @@ import OfferTile from './OfferTile';
 const OfferListContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  background: #e0e0e0;
 `;
 
 const OfferList = ({ selectOffer, offers, filteredList, setTechnology }) => {

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 const SalaryStyled = styled.div`
   color: green;
   text-transform: uppercase;
+  font-weight: 500;
 `;
 
 const Salary = ({ from, to, cur }) => {
