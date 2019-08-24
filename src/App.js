@@ -14,7 +14,6 @@ const List = styled.div`
   margin-top: 30px;
   float: left;
   width: 50%;
-  padding: 5px 0;
   overflow: scroll;
   height: calc(100% - 30px);
 `;

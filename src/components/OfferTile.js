@@ -1,13 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+import { fadeIn } from 'react-animations';
 import { Title } from './MarkerPopup';
 import { selectOffer, hoverOffer } from '../actions/';
 import Salary from './Salary';
 import Skills from './Skills';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCity, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
+
+const fadeInAnimation = keyframes`${fadeIn}`;
 
 const Logo = styled.div`
   background: white;
@@ -26,7 +29,10 @@ const Logo = styled.div`
 `;
 
 const OfferTileStyled = styled(Link)`
+  animation-name: ${fadeInAnimation};
+  animation-duration: 1s;
   width: 96%;
+  background-color: white;
   box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.14) 0px 1px 1px 0px, rgba(0, 0, 0, 0.12) 0px 2px 1px -1px;
   margin: 1%;
   padding: 1%;
