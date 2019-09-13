@@ -23,24 +23,16 @@ const App = ({ getOffers }) => {
     getOffers();
   });
 
-  const onOfferHover = id => {
-    return id;
-  };
-
   return (
     <BrowserRouter>
       <Header />
       <List>
         <Switch>
-          <Route
-            path="/"
-            exact
-            component={() => <OfferList onOfferHover={onOfferHover} />}
-          />
+          <Route path="/" exact component={OfferList} />
           <Route path="/offer/:id" exact component={Offer} />
         </Switch>
       </List>
-      <Map hoveredOffer={onOfferHover()} />
+      <Map />
     </BrowserRouter>
   );
 };

@@ -40,16 +40,15 @@ const OfferList = ({ selectOffer, offers, filteredList, setTechnology }) => {
           {button}
         </OfferListContainer>
       );
-    } else if (offers.length !== 0 && filteredList.length === 0) {
+    } else if (filteredList.length === 0) {
       return (
         <div>
           Sorry! No offers match your search :
           <Link onClick={() => setTechnology('all')}>Reset filters?</Link>
         </div>
       );
-    } else {
-      return <div>Loading...</div>;
     }
+    return <div>Loading...</div>;
   };
   return <div>{renderOffers()}</div>;
 };
