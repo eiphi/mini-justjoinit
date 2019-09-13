@@ -1,3 +1,5 @@
+![alt text](https://i.imgur.com/ivyDeHX.png)
+
 # Mini Just Join IT app
 
 A project built in React and Redux, using tools like react-router, react-thunk, styled components and more.
