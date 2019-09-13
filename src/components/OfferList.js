@@ -40,7 +40,7 @@ const OfferList = ({ selectOffer, offers, filteredList, setTechnology }) => {
           {button}
         </OfferListContainer>
       );
-    } else if (filteredList.length === 0) {
+    } else if (offers.length !== 0 && filteredList.length === 0) {
       return (
         <div>
           Sorry! No offers match your search :
